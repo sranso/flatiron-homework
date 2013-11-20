@@ -1,6 +1,9 @@
 # prereqs arrays, methods, conditional logic, chaining
 # Stop this code from throwing an exception. 
+require "./remove_nils_solution"
 
-def some_method
-  [1, 4, nil, 9, 16, nil].___.inject(0) {|sum, number| sum + number}
+describe "#some_method" do
+	it "should not return any nils" do
+		expect(some_method).to eq(30)
+	end
 end
