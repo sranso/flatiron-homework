@@ -105,8 +105,8 @@ def ten_discount(cart, total_cost)
     new_cost = 0
     cart.each do |item|
         item.each do |name, attributes|
-            if attributes[:price] > 5
-                break
+            if attributes[:price] > 5.0
+                exit
             else
                 new_cost = total_cost - 10
             end
@@ -115,18 +115,18 @@ def ten_discount(cart, total_cost)
     new_cost
 end
 
-def make_a_sale
-    generateCart
-    generateCoups
-    multiples
-    check_for_coupons
-    check_for_clearance
-    checkout
-    ten_discount
-end
+#now let's make a sale... i believe this is the (one of the) correct order of 'attack'
+multiples(generateCart)
+check_for_coupons(generateCart, generateCoups)
+check_for_clearance(generateCart)
+checkout(generateCart)
+ten_discount(generateCart, checkout)
 
 # this code below didn't work: for some reason it kept removing SIXTY (60) from total cost instead of just ten.. even when i changed
 #10 to 1, it still removed a number by the multiple of SIX(6). wassupwiddat?
+#I FIGURED OUT part of the problem: i was saying "break" instead of "exit". but the reason i have to createa new array is because
+#otherwise total_cost gets edited 6 times (all the items under 5$) but if i put an "exit" at the end of that else bit, then i can't get
+#the new cost to return at the end of the method. eh?
 # def ten_discount(cart, total_cost)
 #     cart.each do |item|
 #         item.each do |name, attributes|
