@@ -1,0 +1,101 @@
+<h2>Veg Are People Too</h2>
+<form action="/weird" method="POST">
+  <label for="">Pick A Vegetable:</label>
+  <input id="name" type="text" name="vegname">
+
+  <h3>Relationships</h3>
+
+  <label for="sig o">Sig O:</label>
+  <input type="text" id="sig o" name="relationship[sigo][signame]">
+
+  <label for="sig o dating time">Dating for how long:</label>
+  <input type="number" id="sig o dating time" name="relationship[sigo][sigdatingtime]">
+
+  <label for="monogamous?">Monogamous?</label>
+  <input type="radio" id="monogamous?" name="relationship[sigo][monogamous_y]" value="y">Y</input>
+  <input type="radio" id="monogamous?" name="relationship[sigo][monogamous_n]" value="n">N</input>
+
+  <h3>Family</h3>
+
+  <label for="dad mom1">Dad/Mom:</label>
+  <input type="text" id="dad mom1" name="family[parents][0]">
+
+  <br/>
+
+  <label for="dad mom2">Dad/Mom:</label>
+  <input type="text" id="dad mom2" name="family[parents][1]">
+
+  <br/>
+
+  <label for="bro sis1">Bro/Sis:</label>
+  <input type="text" id="bro sis1 name" name="family[siblings][0][name]">
+  <label for="bro sis1 intimidation">Is he/she an intimidating sibling?</label>
+  <input type="radio" id="bro sis1 intimidation" name="family[siblings][0][intmdng]" value="y">Y</input>
+  <input type="radio" id="bro sis1 intimidation" name="family[siblings][0][intmdng]" value="n">N</input>
+
+  <br/>
+
+  <label for="bro sis2">Bro/Sis:</label>
+  <input type="text" id="bro sis2 name" name="family[siblings][1][name]">
+  <label for="bro sis1 intimidation">Is he/she an intimidating sibling?</label>
+  <input type="radio" id="bro sis2 intimidation" name="family[siblings][1][intmdng]" value="y">Y</input>
+  <input type="radio" id="bro sis2 intimidation" name="family[siblings][1][intmdng]" value="n">N</input>
+
+  <h3>Work</h3>
+
+  <label for="occupation">Occupation</label>
+  <select id="occupation" name="job">
+    <option value="pokemon">Pokemon Stunt Double</option>
+    <option value="friday">Friday Night Dinner</option>
+    <option value="teacher">Dev Teacher (for fruits)</option>
+    <option value="violinist">Violin Player for Cleveland Orchestra</option>
+    <option value="comedian">Comedic Opener for The Daily Show</option>
+    <option value="other">Veg would rather not say...</option>
+  </select>
+
+  <h3>Recreational</h3>
+
+  <label for="sport">Favorite Sport:</label>
+  <select id="sport" name="sport">
+    <option value="footballeu">Football (EU version).</option>
+    <option value="footballus">Football (US version).</option>
+    <option value="raquetball">Raquetball, as long as Veg is wearing padding (bruises easily).</option>
+    <option value="golf">Golf, because the balls remind Veg of family.</option>
+    <option value="romping">Romping in the sack with Sig O.</option>
+    <option value="comedian">Veg is a comedian, so... No exercise.</option>
+  </select>
+
+  <br/>
+  <label for="pasttime">Favorite Pasttime:</label>
+  <select id="pasttime" name="pasttime">
+    <option value="devendra">Singing like Devendra Banhardt.</option>
+    <option value="joanna">Singing like Joanna Newsom.</option>
+    <option value="crying">Crying to either Banhardt or Newsom.</option>
+    <option value="mirror">Staring at reflection, questioning Life ("Am I alive?").</option>
+    <option value="romping">Romping in the sack with Sig O.</option>
+    <option value="soup">Making meat soup.</option>
+    <option value="club">Going to a Fruit dance club.</option>
+  </select>
+
+  <h3>Personal</h3>
+
+  <label for="hope">Greatest Hope:</label>
+  <select id="pasttime" name="pasttime">
+    <option value="height">Veg will one day be over 3 inches high.</option>
+    <option value="noone">No one will want to eat Veg.</option>
+    <option value="someone">Someone will want to eat Veg.</option>
+  </select>
+
+  <br/>
+  <label for="fear">Greatest Fear:</label>
+    <select id="pasttime" name="pasttime">
+    <option value="height">Veg will never be over 3 inches high.</option>
+    <option value="noone">No one will want to eat Veg.</option>
+    <option value="someone">Someone will want to eat Veg.</option>
+  </select>
+
+  <br></br>
+
+  <button type="submit" value="weird results">Veg Out</button>
+
+</form>
