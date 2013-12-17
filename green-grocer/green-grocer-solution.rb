@@ -37,55 +37,68 @@ end
 #randomly generates set of coupons
 def generateCoups
     coups = []
-    rand(2).times do
+    rand(4).times do
         coups.push(COUPS.sample)
     end
     coups
 end
 
+#counts number of items in cart
+def count(cart) #works
+    cart.size
+end
+
 #counts for multiple items in cart
-def multiples(cart)
+def multiples(cart) #works
     cart.each do |item|
         item.each do |name, attributes|
-            attributes[:count] = cart.select{|other_item| other_item == item}.size
+            attributes[:count] = cart.select{|each_item| each_item == item}.size
         end
     end
     cart.uniq
 end
 
-#calculates the total cost of the cart
-def checkout(cart)
-    total_cost = []
+#check for coupons and apply the discount if the proper number of items is present, returns new total cost
+def apply_coupons1(cart, coupons) #works
+    cost = 0
     cart.each do |item|
         item.each do |name, attributes|
-            total_cost << attributes[:price]
+            coupons.each do |coupon|
+                if coupon[:item] == name && attributes[:count] >= coupon[:num] #if name of coupon item equals name of item in cart && number of items needed for coupon >= number of items in cart count
+                    cost += coupon[:cost] #add the cost from the discount item to cost
+                end
+            end
         end
     end
-    total_cost.reduce(:+)
+    cost
 end
 
-#when checking out, check the coupons and apply the discount if the proper number of items is present
-def check_for_coupons(cart, coupons)
+#remove coupon-ed items from the cart, returns new cart
+def apply_coupons2(cart, coupons) #works
     cart.each do |item|
         item.each do |name, attributes|
-            if name == #if name of produce equals name of coupon item, then...
-                #not sure what to do here.. i want to use name and attributes...
-                #later down in this method but.. how to make the two iterations meet?
+            coupons.each do |coupon|
+                if coupon[:item] == name && attributes[:count] >= coupon[:num] #if name of coupon item equals name of item in cart && number of items needed for coupon >= number of items in cart count
+                    attributes[:count] = attributes[:count] - coupon[:num] #change number of items in cart
+                end
             end
         end
     end
-    coupons.each do |key, value|
-        if value == name #if name of coupon item equals 
-            if key[:num] >= attributes[:count] #if number of items needed for coupon >= number of items in cart count...
-                attributes[:price] = key[cost] #apply the discount by replacing price with the discount  
-            end
-        end
-    end
+    cart
 end
-#to iterate over two arrays, do i need to use .zip? http://ruby-doc.org/core-2.0.0/Enumerable.html#method-i-zip
+
+#calculates cost of multiple items. need to pass multiples in.
+def cost_of_multiples(cart) #works
+    cart.each do |item|
+        item.each do |name, attributes|
+            attributes[:price] = attributes[:price]*attributes[:count]
+        end
+    end
+    cart
+end
 
 #if any of the items are on clearance add a 20% discount
-def check_for_clearance(cart)
+def apply_clearance(cart)
     cart.each do |item|
         item.each do |name, attributes|
             if attributes[:clearance] == true
@@ -97,47 +110,45 @@ end
 
 #if the customer has 2 of the same coupon, triple the discount
 def triple_discount
-    #couldn't ever happen with the code b/c COUP uses rand(2) which only returns 0 1 ... yes?
+    
 end
 
 #if none of the items purchased have a unit price greater than 5$ give the customer a 10$ discount off the whole cart
 def ten_discount(cart, total_cost)
-    new_cost = 0
+    over_five = false
     cart.each do |item|
         item.each do |name, attributes|
             if attributes[:price] > 5.0
-                exit
-            else
-                new_cost = total_cost - 10
+                over_five = true
             end
         end
     end
-    new_cost
+    if over_five == false && total_cost >= 10
+        return total_cost - 10
+    end
+    total_cost
 end
 
-#now let's make a sale... i believe this is the (one of the) correct order of 'attack'
-multiples(generateCart)
-check_for_coupons(generateCart, generateCoups)
-check_for_clearance(generateCart)
-checkout(generateCart)
-ten_discount(generateCart, checkout)
+#calculates the total cost of the cart, after calculating cost of multiples
+def checkout(cart) #works
+    total_cost = []
+    cart.each do |item|
+        item.each do |name, attributes|
+            total_cost << attributes[:price]
+        end
+    end
+    total_cost.reduce(:+)
+end
 
-# this code below didn't work: for some reason it kept removing SIXTY (60) from total cost instead of just ten.. even when i changed
-#10 to 1, it still removed a number by the multiple of SIX(6). wassupwiddat?
-#I FIGURED OUT part of the problem: i was saying "break" instead of "exit". but the reason i have to createa new array is because
-#otherwise total_cost gets edited 6 times (all the items under 5$) but if i put an "exit" at the end of that else bit, then i can't get
-#the new cost to return at the end of the method. eh?
-# def ten_discount(cart, total_cost)
-#     cart.each do |item|
-#         item.each do |name, attributes|
-#             if attributes[:price] > 5
-#                 break
-#             else
-#                 total_cost = total_cost - 10
-#             end
-#         end
-#     end
-#     total_cost
-# end
+puts "v1"
+puts v1_cart = multiples(generateCart)
+puts "coups"
+puts coups = generateCoups
+puts "apply_coupons1"
+puts cost = apply_coupons1(v1_cart, coups)
+puts "apply_coupons2"
+puts cost = apply_coupons2(v1_cart, coups)
+puts "cost of multiples"
+puts v2_cart = cost_of_multiples(v1_cart)
 
 
